@@ -2,6 +2,8 @@ from collections import namedtuple
 inf = float('inf')
 
 Edge = namedtuple('Edge', ['verts', 'weight'])
+
+
 class Vertex:
     def __init__(self, name=None, dist=inf, stack=None):
         self.name = name
@@ -10,7 +12,8 @@ class Vertex:
 
     def __repr__(self):
         return '⟦{} ({})⟧'.format(
-                '→ '.join(self.stack + [self.name]), self.dist)
+            '→ '.join(self.stack + [self.name]), self.dist)
+
 
 class Graph:
     def __init__(self, edges=None, verts=None):
@@ -51,4 +54,4 @@ class Graph:
 
     def __repr__(self):
         return "Graph(verts={}, edges={})".format(
-                repr(self.verts), repr(self.edges))
+            repr(self.verts), repr(self.edges))

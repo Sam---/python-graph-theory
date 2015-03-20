@@ -25,26 +25,26 @@ class Graph:
         self.verts.add(b)
         self.edges.add(Edge(verts=(a, b), weight=weight))
 
-    def connected_to(self, v):
+    def _connected_to(self, v):
         for edge in self.edges:
             if v in edge.verts:
                 # second part is crazy but works
                 yield edge, edge.verts[edge.verts.index(v) - 1]
 
     def path_from(self, v):
-        self.clear_dists()
+        self._clear_dists()
         v.dist = 0
         v.stack = []
-        self.propagate(v)
+        self._propagate(v)
 
-    def propagate(self, v):
-        for edge, node in self.connected_to(v):
+    def _propagate(self, v):
+        for edge, node in self._connected_to(v):
             if node.name not in v.stack and v.dist + edge.weight < node.dist:
                 node.dist = v.dist + edge.weight
                 node.stack = v.stack + [v.name]
-                self.propagate(node)
+                self._propagate(node)
 
-    def clear_dists(self):
+    def _clear_dists(self):
         for vert in self.verts:
             vert.dist = inf
             vert.stack = []
